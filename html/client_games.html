@@ -82,38 +82,9 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
       </div>
 
       <div class="dialog-row">
-        <button id="instant-game" data-i18n="btn-create-new-game"></button>
+        <button id="create-game" data-i18n="btn-create-new-game"></button>
         <button id="reminders-button" data-i18n="btn-send-reminders" data-i18n-tooltip="tt-sendrems"></button>
       </div>
-      
-      <!-- The script to handle the one-click creation -->
-      <script>
-      $(document).ready(function() {
-          $('#instant-game').on('click', function(e) {
-              e.preventDefault();
-              
-              // Disable button to prevent double-clicks
-              const btn = $(this);
-              btn.prop('disabled', true);
-
-              // Send the request directly to the server
-              $.post('/createGame', {
-                  dictionary: 'CSW2021_English', 
-                  edition: 'Standard',           
-                  timer: 'none',                 
-                  minPlayers: 2,                 
-                  maxPlayers: 2                  
-              })
-              .done(function() {
-                  window.location.reload();
-              })
-              .fail(function() {
-                  alert('Could not create game. Please try again.');
-                  btn.prop('disabled', false);
-              });
-          });
-      });
-      </script>
       <script>
       document.getElementById('create-game').addEventListener('click', function(e) {
           // 1. Stop the default pop-up dialog from opening
