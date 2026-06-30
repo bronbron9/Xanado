@@ -85,7 +85,32 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
         <button id="create-game" data-i18n="btn-create-new-game"></button>
         <button id="reminders-button" data-i18n="btn-send-reminders" data-i18n-tooltip="tt-sendrems"></button>
       </div>
+      <script>
+      document.getElementById('create-game').addEventListener('click', function(e) {
+          // 1. Stop the default pop-up dialog from opening
+          e.preventDefault();
+          e.stopPropagation();
 
+          // 2. Define your absolute default settings here
+          const gameDefaults = {
+              dictionary: 'CSW2021_English', // Your chosen dictionary filename
+              edition: 'Scrabble',           // Standard game rules
+              timer: 'none',                 // No time limit
+              minPlayers: 1,                 // Minimum players
+              maxPlayers: 2                  // Maximum players (you vs grandmother)
+          };
+
+          // 3. Send the game creation request directly to the backend server
+          $.post('/createGame', gameDefaults)
+          .done(function() {
+              // Refresh the lobby instantly to show the new game
+              window.location.reload();
+          })
+          .fail(function(err) {
+              alert('Failed to quickly create game. Please try again.');
+          });
+      });
+      </script>
       <div id="alertDialog" class="dialog">
       </div>
 
